@@ -1,0 +1,26 @@
+package model.statement;
+
+import model.adt.MyDictionary;
+import model.adt.MyIList;
+import model.expression.IExpression;
+import model.program_state.ProgramState;
+import model.value.IValue;
+
+public class PrintStatement implements IStatement{
+    IExpression expression;
+    public PrintStatement(IExpression expression) {
+        this.expression = expression;
+    }
+
+    @Override
+    public ProgramState execute(ProgramState programState) {
+        MyIList<IValue> out = programState.getOut();
+        out.add(expression.evaluate((MyDictionary<String, IValue>) programState.getSymTable())); //error
+        programState.setOut(out);
+        return programState;
+    }
+    @Override
+    public String toString() {
+        return String.format("Print(%s)", expression.toString());
+    }
+}
