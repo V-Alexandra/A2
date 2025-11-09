@@ -7,8 +7,8 @@ import model.value.BooleanValue;
 import model.value.IValue;
 
 public class LogicalExpression implements IExpression {
-    private IExpression leftOperand;
-    private IExpression rightOperand;
+    private final IExpression leftOperand;
+    private final IExpression rightOperand;
     String operator;
 
     public LogicalExpression(IExpression leftOperand, IExpression rightOperand, String operator) {

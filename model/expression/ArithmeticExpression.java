@@ -7,20 +7,12 @@ import model.adt.MyDictionary;
 import model.value.IValue;
 import model.value.IntegerValue;
 
-public class ArithmeticExpression implements IExpression {
-    IExpression leftOperand;
-    IExpression rigthOperand;
-    char operator;
-
-    public ArithmeticExpression(char operator,IExpression leftOperand, IExpression rigthOperand) {
-        this.leftOperand = leftOperand;
-        this.rigthOperand = rigthOperand;
-        this.operator = operator;
-    }
+public record ArithmeticExpression(char operator, IExpression leftOperand,
+                                   IExpression rigthOperand) implements IExpression {
 
 
     @Override
-    public IValue evaluate(MyDictionary<String, IValue> symbolTable)  throws InvalidTypeException, DivisionByZeroException, UnknownOperatorException {
+    public IValue evaluate(MyDictionary<String, IValue> symbolTable) throws InvalidTypeException, DivisionByZeroException, UnknownOperatorException {
         IValue leftValue, rightValue;
 
         leftValue = leftOperand.evaluate(symbolTable);
@@ -40,17 +32,19 @@ public class ArithmeticExpression implements IExpression {
         };
         return new IntegerValue(result);
     }
+
     private static int divide(int leftInt, int rightInt) {
         if (rightInt == 0) throw new DivisionByZeroException();
         return leftInt / rightInt;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return leftOperand.toString() + " " + operator + " " + rigthOperand.toString();
     }
 
     @Override
     public IExpression deepCopy() {
-        return new ArithmeticExpression(operator,leftOperand.deepCopy(),rigthOperand.deepCopy());
+        return new ArithmeticExpression(operator, leftOperand.deepCopy(), rigthOperand.deepCopy());
     }
 }

@@ -6,17 +6,11 @@ import model.program_state.ProgramState;
 import model.type.IType;
 import model.value.IValue;
 
-public class VariableDeclarationStatement implements IStatement {
-    String name;
-    IType type;
-    public VariableDeclarationStatement(String name, IType type) {
-        this.name = name;
-        this.type = type;
-    }
+public record VariableDeclarationStatement(String name, IType type) implements IStatement {
     @Override
     public ProgramState execute(ProgramState programState) {
         MyIDictionary<String, IValue> symTable = programState.getSymTable();
-        if(symTable.containsKey(name)){
+        if (symTable.containsKey(name)) {
             throw new VariableIsAlreadyDeclared();
         }
         symTable.put(name, type.getDefaultValue());

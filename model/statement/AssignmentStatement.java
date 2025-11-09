@@ -7,16 +7,8 @@ import model.adt.MyIDictionary;
 import model.expression.IExpression;
 import model.program_state.ProgramState;
 import model.value.IValue;
-import model.type.IType;
 
-public class AssignmentStatement implements IStatement {
-    private String key;
-    private IExpression expression;
-
-    public AssignmentStatement(String key, IExpression expression) {
-        this.key = key;
-        this.expression = expression;
-    }
+public record AssignmentStatement(String key, IExpression expression) implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState programState) {
@@ -24,7 +16,7 @@ public class AssignmentStatement implements IStatement {
         if (!symbolTable.containsKey(key)) {
             throw new VariableNotDefinedException();
         }
-        IValue value = expression.evaluate((MyDictionary<String, IValue>) programState.getSymTable()    ); //error
+        IValue value = expression.evaluate((MyDictionary<String, IValue>) programState.getSymTable()); //error
         if (!symbolTable.get(key).getType().equals(value.getType())) {
             symbolTable.update(key, value);
         } else

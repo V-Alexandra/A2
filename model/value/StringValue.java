@@ -1,6 +1,7 @@
 package model.value;
 
 import model.type.IType;
+import model.type.StringType;
 
 import java.util.Objects;
 
@@ -13,19 +14,19 @@ public record StringValue(String value) implements IValue {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof StringValue that)) return false;
-        return Objects.equals(value, that.value);
+        if (!(o instanceof StringValue(String value1))) return false;
+        return Objects.equals(value, value1);
     }
 
 
     @Override
     public IType getType() {
-        return null;
+        return new StringType();
     }
 
     @Override
     public IValue deepCopy() {
-        return null;
+        return new StringValue(value);
     }
 
     @Override

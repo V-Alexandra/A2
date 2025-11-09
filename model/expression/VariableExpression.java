@@ -3,12 +3,7 @@ package model.expression;
 import model.adt.MyDictionary;
 import model.value.IValue;
 
-public class VariableExpression implements IExpression {
-    String key;
-
-    public VariableExpression(String key) {
-        this.key = key;
-    }
+public record VariableExpression(String key) implements IExpression {
 
     @Override
     public IValue evaluate(MyDictionary<String, IValue> symbolTable) {

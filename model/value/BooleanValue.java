@@ -3,8 +3,6 @@ package model.value;
 import model.type.BooleanType;
 import model.type.IType;
 
-import java.util.Objects;
-
 public record BooleanValue(boolean value) implements IValue {
 
     @Override

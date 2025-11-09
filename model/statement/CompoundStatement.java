@@ -3,13 +3,7 @@ package model.statement;
 import model.adt.MyIStack;
 import model.program_state.ProgramState;
 
-public class CompoundStatement  implements IStatement {
-    IStatement firstStatement;
-    IStatement secondStatement;
-    public CompoundStatement(IStatement firstStatement, IStatement secondStatement) {
-        this.firstStatement = firstStatement;
-        this.secondStatement = secondStatement;
-    }
+public record CompoundStatement(IStatement firstStatement, IStatement secondStatement) implements IStatement {
     @Override
     public ProgramState execute(ProgramState programState) {
         MyIStack<IStatement> stack = programState.getExeStack();

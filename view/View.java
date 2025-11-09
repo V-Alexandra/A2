@@ -1,5 +1,6 @@
 package view;
-import com.sun.jdi.IntegerType;
+
+
 import controller.Controller;
 import model.adt.*;
 import model.expression.ArithmeticExpression;
@@ -8,13 +9,13 @@ import model.expression.VariableExpression;
 import model.program_state.ProgramState;
 import model.statement.*;
 import model.type.BooleanType;
-import model.type.IType;
 import model.type.IntType;
 import model.value.BooleanValue;
 import model.value.IValue;
 import model.value.IntegerValue;
 import repository.IRepository;
 import repository.Repository;
+
 import java.util.Scanner;
 
 public class View {

@@ -3,14 +3,14 @@ package model.adt;
 import java.util.Stack;
 
 public class MyStack<T> implements MyIStack<T>{
-    Stack<T> stack;
+    final Stack<T> stack;
 
     public MyStack(){
         this.stack = new Stack<>();
     }
 
     @Override
-    public T pop() { //stack is empty
+    public T pop() {
         return this.stack.pop();
     }
 

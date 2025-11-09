@@ -1,14 +1,13 @@
 package model.adt;
 
-import exceptions.ADTExceptions;
+
 import exceptions.KeyNotFoundException;
 
-import java.security.Key;
 import java.util.HashMap;
 import java.util.Set;
 
 public class MyDictionary<T1,T2> implements MyIDictionary<T1,T2> {
-    private HashMap<T1, T2> dictionary;
+    final private HashMap<T1, T2> dictionary;
     public MyDictionary() {
         dictionary = new HashMap<>();
     }
