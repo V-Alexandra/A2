@@ -16,7 +16,7 @@ public class ProgramState {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
-        this.originalProgram = originalProgram;
+        this.originalProgram = originalProgram.deepCopy();
         this.exeStack.push(originalProgram);
     }
 
@@ -64,12 +64,30 @@ public class ProgramState {
         return out.toString();
     }
 
+
     @Override
     public String toString() {
-        return "ProgramState{" +
-                "exeStack=" + exeStack.toString() +
-                ", symTable=" + symTable.toString() +
-                ", out=" + out.toString() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("ProgramState:\n");
+        sb.append("  ExeStack:\n");
+        if (exeStack.toString().equals("[]")) {
+            sb.append("    (empty)\n");
+        } else {
+            sb.append("    ").append(exeStack.toString()).append("\n");
+        }
+        sb.append("  SymTable:\n");
+        if (symTable.toString().equals("{}")) {
+            sb.append("    (empty)\n");
+        } else {
+            sb.append("    ").append(symTable.toString()).append("\n");
+        }
+        sb.append("  Out:\n");
+        if (out.toString().equals("[]")) {
+            sb.append("    (empty)");
+        } else {
+            sb.append("    ").append(out.toString());
+        }
+        return sb.toString();
     }
+
 }

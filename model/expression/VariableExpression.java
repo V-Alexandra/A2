@@ -19,4 +19,9 @@ public class VariableExpression implements IExpression {
     public String toString() {
         return this.key;
     }
+
+    @Override
+    public IExpression deepCopy() {
+        return new VariableExpression(key);
+    }
 }

@@ -19,8 +19,6 @@ public class ArithmeticExpression implements IExpression {
     }
 
 
-
-
     @Override
     public IValue evaluate(MyDictionary<String, IValue> symbolTable)  throws InvalidTypeException, DivisionByZeroException, UnknownOperatorException {
         IValue leftValue, rightValue;
@@ -49,5 +47,10 @@ public class ArithmeticExpression implements IExpression {
     @Override
     public String toString(){
         return leftOperand.toString() + " " + operator + " " + rigthOperand.toString();
+    }
+
+    @Override
+    public IExpression deepCopy() {
+        return new ArithmeticExpression(operator,leftOperand.deepCopy(),rigthOperand.deepCopy());
     }
 }

@@ -4,4 +4,6 @@ import model.program_state.ProgramState;
 
 public interface IStatement {
     ProgramState execute(ProgramState programState);
+
+    IStatement deepCopy();
 }

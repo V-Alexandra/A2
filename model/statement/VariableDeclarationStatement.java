@@ -3,13 +3,13 @@ package model.statement;
 import exceptions.VariableIsAlreadyDeclared;
 import model.adt.MyIDictionary;
 import model.program_state.ProgramState;
-import model.type.Type;
+import model.type.IType;
 import model.value.IValue;
 
 public class VariableDeclarationStatement implements IStatement {
     String name;
-    Type type;
-    public VariableDeclarationStatement(String name, Type type) {
+    IType type;
+    public VariableDeclarationStatement(String name, IType type) {
         this.name = name;
         this.type = type;
     }
@@ -23,6 +23,12 @@ public class VariableDeclarationStatement implements IStatement {
         programState.setSymTable(symTable);
         return programState;
     }
+
+    @Override
+    public IStatement deepCopy() {
+        return new VariableDeclarationStatement(name, type.deepCopy());
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s", type.toString(), name);

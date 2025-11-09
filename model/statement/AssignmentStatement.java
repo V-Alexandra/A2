@@ -7,6 +7,7 @@ import model.adt.MyIDictionary;
 import model.expression.IExpression;
 import model.program_state.ProgramState;
 import model.value.IValue;
+import model.type.IType;
 
 public class AssignmentStatement implements IStatement {
     private String key;
@@ -23,8 +24,8 @@ public class AssignmentStatement implements IStatement {
         if (!symbolTable.containsKey(key)) {
             throw new VariableNotDefinedException();
         }
-        IValue value = expression.evaluate((MyDictionary<String, IValue>) symbolTable); //error
-        if (value.getType().equals((symbolTable.lookup(key)).getType())) {
+        IValue value = expression.evaluate((MyDictionary<String, IValue>) programState.getSymTable()    ); //error
+        if (!symbolTable.get(key).getType().equals(value.getType())) {
             symbolTable.update(key, value);
         } else
             throw new InvalidTypeException();
@@ -32,4 +33,13 @@ public class AssignmentStatement implements IStatement {
         return programState;
     }
 
+    @Override
+    public IStatement deepCopy() {
+        return new AssignmentStatement(key, expression.deepCopy());
+    }
+
+    @Override
+    public String toString() {
+        return key + " = " + expression.toString();
+    }
 }

@@ -18,6 +18,12 @@ public class CompoundStatement  implements IStatement {
         programState.setExeStack(stack);
         return programState;
     }
+
+    @Override
+    public IStatement deepCopy() {
+        return new CompoundStatement(firstStatement.deepCopy(), secondStatement.deepCopy());
+    }
+
     @Override
     public String toString() {
         return String.format("(%s|%s)", firstStatement.toString(), secondStatement.toString());

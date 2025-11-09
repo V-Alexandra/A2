@@ -1,4 +1,5 @@
 package view;
+import com.sun.jdi.IntegerType;
 import controller.Controller;
 import model.adt.*;
 import model.expression.ArithmeticExpression;
@@ -6,7 +7,9 @@ import model.expression.ValueExpression;
 import model.expression.VariableExpression;
 import model.program_state.ProgramState;
 import model.statement.*;
-import model.type.Type;
+import model.type.BooleanType;
+import model.type.IType;
+import model.type.IntType;
 import model.value.BooleanValue;
 import model.value.IValue;
 import model.value.IntegerValue;
@@ -49,7 +52,7 @@ public class View {
     }
 
     private void runProgram1() {
-        IStatement ex1 = new CompoundStatement(new VariableDeclarationStatement("v", Type.INTEGER),
+        IStatement ex1 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
                 new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntegerValue(2))),
                         new PrintStatement(new VariableExpression("v"))));
         runStatement(ex1);
@@ -57,7 +60,7 @@ public class View {
 
     private void runProgram2() {
         IStatement ex2 = new CompoundStatement(
-                new VariableDeclarationStatement("a", Type.INTEGER),
+                new VariableDeclarationStatement("a", new IntType()),
                 new CompoundStatement(
                         new AssignmentStatement("a",
                                 new ArithmeticExpression('+',
@@ -66,7 +69,7 @@ public class View {
                                                 new ValueExpression(new IntegerValue(3)),
                                                 new ValueExpression(new IntegerValue(5))))),
                         new CompoundStatement(
-                                new VariableDeclarationStatement("b", Type.INTEGER),
+                                new VariableDeclarationStatement("b", new IntType()),
                                 new CompoundStatement(
                                         new AssignmentStatement("b",
                                                 new ArithmeticExpression('+',
@@ -81,8 +84,8 @@ public class View {
     }
 
     private void runProgram3() {
-        IStatement ex3 = new CompoundStatement(new VariableDeclarationStatement("a", Type.BOOLEAN),
-                new CompoundStatement(new VariableDeclarationStatement("v", Type.INTEGER),
+        IStatement ex3 = new CompoundStatement(new VariableDeclarationStatement("a", new BooleanType()),
+                new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
                         new CompoundStatement(new AssignmentStatement("a", new ValueExpression(new BooleanValue(true))),
                                 new CompoundStatement(new IfStatement(new VariableExpression("a"),
                                         new AssignmentStatement("v", new ValueExpression(new IntegerValue(2))),
@@ -98,6 +101,7 @@ public class View {
         ProgramState state = new ProgramState(executionStack, symbolTable, output, statement);
         IRepository repository = new Repository(state);
         Controller controller = new Controller(repository);
+        controller.setDisplayFlag(true);
         controller.allSteps();
         System.out.println("Result is " + state.getOut().toString().replace('[', ' ').replace(']', ' '));
     }
