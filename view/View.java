@@ -102,7 +102,7 @@ public class View {
         ProgramState state = new ProgramState(executionStack, symbolTable, output, statement);
         IRepository repository = new Repository(state);
         Controller controller = new Controller(repository);
-        controller.setDisplayFlag(true);
+        controller.setDisplayFlag(false);
         controller.allSteps();
         System.out.println("Result is " + state.getOut().toString().replace('[', ' ').replace(']', ' '));
     }

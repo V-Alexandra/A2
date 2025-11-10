@@ -17,7 +17,7 @@ public record AssignmentStatement(String key, IExpression expression) implements
             throw new VariableNotDefinedException();
         }
         IValue value = expression.evaluate((MyDictionary<String, IValue>) programState.getSymTable()); //error
-        if (!symbolTable.get(key).getType().equals(value.getType())) {
+        if (symbolTable.get(key).getType().equals(value.getType())) {
             symbolTable.update(key, value);
         } else
             throw new InvalidTypeException();
